@@ -128,7 +128,10 @@ class _SearchPageState extends State<SearchPage> {
               )),
         ),
         TextButton.icon(
-            onPressed: () {}, icon: Icon(Icons.account_box), label: Text("BTN"))
+            onPressed: () {},
+            icon: Icon(Icons.account_box),
+            label: Text("BTN")),
+
         // decoration: BoxDecoration(
         //     border: Border.all(width: 2, color: Colors.black),
         //     borderRadius: BorderRadius.circular(50)),
