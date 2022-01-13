@@ -131,6 +131,17 @@ class _SearchPageState extends State<SearchPage> {
             onPressed: () {},
             icon: Icon(Icons.account_box),
             label: Text("BTN")),
+        // FloatingActionButtonLocation.endDocked;
+
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+        FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: Colors.red,
+          foregroundColor: Colors.black,
+          splashColor: Colors.cyan,
+          mini: true,
+          onPressed: () {},
+        ),
 
         // decoration: BoxDecoration(
         //     border: Border.all(width: 2, color: Colors.black),

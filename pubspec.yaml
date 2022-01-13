@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   expansion_tile_card: ^2.0.0
+  flutter_speed_dial: ^4.3.0
 
 
   # The following adds the Cupertino Icons font to your application.

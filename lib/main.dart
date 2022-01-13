@@ -4,6 +4,7 @@ import 'package:day_6/pages/profil.dart';
 import 'package:day_6/pages/search.dart';
 // import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     CarPage(),
     CallPage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     // PageController pageController = PageController();
@@ -101,6 +103,55 @@ class _MyHomePageState extends State<MyHomePage> {
       //     CarPage(),
       //   ],
       // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: SpeedDial(
+        backgroundColor: Colors.cyan,
+        overlayColor: Colors.amber.shade300,
+        animatedIcon: AnimatedIcons.menu_close,
+        childMargin: EdgeInsets.all(15),
+        overlayOpacity: 1,
+        children: [
+          SpeedDialChild(
+            labelBackgroundColor: Colors.white,
+            labelStyle: TextStyle(color: Colors.black, fontSize: 20),
+            child: Icon(
+              Icons.mail,
+              color: Colors.white,
+              size: 25,
+            ),
+            label: "Mail",
+            onTap: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const CarPage())),
+            backgroundColor: Colors.indigo,
+            foregroundColor: Colors.white,
+          ),
+          SpeedDialChild(
+            labelBackgroundColor: Colors.white,
+            labelStyle: TextStyle(color: Colors.black, fontSize: 20),
+            child: Icon(
+              Icons.copy,
+              color: Colors.white,
+              size: 25,
+            ),
+            label: "Copy",
+            backgroundColor: Colors.indigo,
+            foregroundColor: Colors.white,
+          ),
+          SpeedDialChild(
+            labelBackgroundColor: Colors.white,
+            labelStyle: TextStyle(color: Colors.black, fontSize: 20),
+            child: Icon(
+              Icons.share,
+              color: Colors.white,
+              size: 25,
+            ),
+            label: "Share",
+            backgroundColor: Colors.indigo,
+            foregroundColor: Colors.white,
+          )
+        ],
+      ),
+
       bottomNavigationBar: BottomNavigationBar(
         // currentIndex: _selectedIndex,
         items: const <BottomNavigationBarItem>[
