@@ -8,6 +8,7 @@ class CallPage extends StatefulWidget {
 }
 
 class _CallPageState extends State<CallPage> {
+  int _value = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,6 +70,28 @@ class _CallPageState extends State<CallPage> {
                     border: Border.all(width: 2, color: Colors.black),
                     borderRadius: BorderRadius.circular(20))),
           ),
+          Column(
+            children: [
+              Container(
+                child: DropdownButton(
+                    value: _value,
+                    items: [
+                      DropdownMenuItem(
+                        child: Text("First Item"),
+                        value: 1,
+                      ),
+                      DropdownMenuItem(
+                        child: Text("Second Item"),
+                        value: 2,
+                      )
+                    ],
+                    onChanged: (value) {
+                      setState(() {});
+                    },
+                    hint: Text("Select item")),
+              )
+            ],
+          )
         ],
       ),
     );

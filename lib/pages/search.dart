@@ -14,7 +14,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   // final GlobalKey<ExpansionTileCardState> cardA = new GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -141,6 +140,25 @@ class _SearchPageState extends State<SearchPage> {
           splashColor: Colors.cyan,
           mini: true,
           onPressed: () {},
+        ),
+        Ink(
+          child: IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.play_circle),
+            // color: Colors.deepOrange,
+            highlightColor: Colors.red.shade100,
+            // focusColor: Colors.white,
+            // splashRadius: 100,
+            splashColor: Colors.white,
+            tooltip: "Play vedio",
+
+            iconSize: 50,
+          ),
+          decoration: ShapeDecoration(
+              color: Colors.cyan,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(width: 3, color: Colors.black),
+                  borderRadius: BorderRadius.circular(15))),
         ),
 
         // decoration: BoxDecoration(

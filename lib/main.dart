@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
         overlayColor: Colors.amber.shade300,
         animatedIcon: AnimatedIcons.menu_close,
         childMargin: EdgeInsets.all(15),
-        overlayOpacity: 1,
+        overlayOpacity: .8,
         children: [
           SpeedDialChild(
             labelBackgroundColor: Colors.white,
