@@ -1,9 +1,8 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
+// ignore_for_file: import_of_legacy_library_into_null_safe, deprecated_member_use, prefer_const_constructors
 
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:day_6/pages/call.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -18,13 +17,20 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   late int percent = 0;
   late Timer timer;
-  void initState() {
-    timer = Timer.periodic(Duration(milliseconds: 1000), (_) {
+  @override
+  initState() {
+    timer = Timer.periodic(const Duration(milliseconds: 1000), (_) {
       setState(() {
         percent += 10;
         if (percent >= 100) {
+          Center(
+            child: Icon(
+              Icons.done,
+              color: Colors.green,
+              size: 50,
+            ),
+          );
           timer.cancel();
-          // percent=0;
         }
       });
     });
@@ -252,10 +258,10 @@ class _SearchPageState extends State<SearchPage> {
           radius: 120.0,
           lineWidth: 10.0,
           animation: true,
-          percent: 1,
+          percent: percent / 100,
           center: Text(
             percent.toString() + "%",
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w600,
                 color: Colors.black),
@@ -264,7 +270,11 @@ class _SearchPageState extends State<SearchPage> {
           circularStrokeCap: CircularStrokeCap.round,
           progressColor: Colors.redAccent,
         ),
-
+        LinearPercentIndicator(
+          fillColor: Colors.green,
+          percent: .5,
+          progressColor: Colors.amber,
+        ),
         const SizedBox(
             // width: 400,
             // height: 10,
