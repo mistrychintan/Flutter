@@ -1,9 +1,12 @@
-// ignore: import_of_legacy_library_into_null_safe
-// import 'package:day_6/main.dart';
+// ignore_for_file: import_of_legacy_library_into_null_safe
 
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:day_6/pages/call.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -13,12 +16,28 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  late int percent = 0;
+  late Timer timer;
+  void initState() {
+    timer = Timer.periodic(Duration(milliseconds: 1000), (_) {
+      setState(() {
+        percent += 10;
+        if (percent >= 100) {
+          timer.cancel();
+          // percent=0;
+        }
+      });
+    });
+    super.initState();
+  }
+
   // final GlobalKey<ExpansionTileCardState> cardA = new GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Column(
       // shrinkWrap: false,
-
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ExpansionTileCard(
           shadowColor: Colors.deepOrange,
@@ -62,28 +81,123 @@ class _SearchPageState extends State<SearchPage> {
           splashColor: Colors.green,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          visualDensity: VisualDensity(horizontal: 1, vertical: 1),
-          child: Text("Flat Button"),
+          visualDensity: const VisualDensity(horizontal: 1, vertical: 1),
+          child: const Text("Flat Button"),
           textTheme: ButtonTextTheme.primary,
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const CallPage()));
-          },
+          onPressed: () => showDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                    title: const Text("Alert Dialog title"),
+                    content: const Text("Alert Dialog description"),
+                    actions: [
+                      TextButton(
+                        // style: TextButton.styleFrom(
+                        //     backgroundColor: Colors.red.shade300,
+                        //     shadowColor: Colors.amber,
+                        //     textStyle: TextStyle(color: Colors.black)),
+                        onPressed: () => Navigator.pop(context, 'Cancle'),
+                        child: const Text(
+                          "Cancle",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      TextButton(
+                          // style: TextButton.styleFrom(
+                          //     backgroundColor: Colors.red.shade300,
+                          //     shadowColor: Colors.amber,
+                          //     textStyle: TextStyle(color: Colors.black)),
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text(
+                            "ok",
+                            style: TextStyle(color: Colors.black),
+                          ))
+                    ],
+                    // buttonPadding: EdgeInsets.all(15),
+                    // scrollable: true,
+                    // shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(10),
+                    // side: BorderSide(width: 2, color: Colors.black))
+                  )),
         ),
         ElevatedButton(
             style: ButtonStyle(
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
-                      side: BorderSide(color: Colors.black))),
+                      side: const BorderSide(color: Colors.black))),
             ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const CallPage()));
-            },
-            child: Text("Elevated Btn")),
+            onPressed: () => showDialog(
+                context: context,
+                barrierDismissible: false,
+                barrierColor: Colors.white24,
+                // barrierLabel: "hello",
+                builder: (BuildContext context) => SimpleDialog(
+                      backgroundColor: Colors.deepPurpleAccent,
+                      title: const Text("Simple Dialog"),
+                      children: [
+                        SimpleDialogOption(
+                          onPressed: () => Navigator.pop(context),
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Icon(
+                                    Icons.account_circle_outlined,
+                                    color: Colors.green,
+                                    size: 30,
+                                  ),
+                                  Text("user1@gmail.com",
+                                      style: TextStyle(color: Colors.black)),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Icon(
+                                    Icons.account_circle_outlined,
+                                    color: Colors.yellow,
+                                    size: 30,
+                                  ),
+                                  Text("user1@gmail.com",
+                                      style: TextStyle(color: Colors.black)),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Icon(
+                                    Icons.add_circle,
+                                    color: Colors.black,
+                                    size: 30,
+                                  ),
+                                  Text("add account",
+                                      style: TextStyle(color: Colors.black)),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+            child: const Text("Elevated Btn")),
         RaisedButton(
-          child: Text("RaisedBTN"),
+          child: const Text("RaisedBTN"),
           // onHighlightChanged: (value) {
           //   print(value);
           // },
@@ -93,19 +207,19 @@ class _SearchPageState extends State<SearchPage> {
           highlightColor: Colors.green,
           color: Colors.deepPurple.shade500,
           splashColor: Colors.black,
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           colorBrightness: Brightness.light,
           // elevation: 25,
           // shape: Border.all(width: 3, color: Colors.black),
           shape: BeveledRectangleBorder(
               borderRadius: BorderRadius.circular(25),
-              side: BorderSide(width: 1, color: Colors.red)),
+              side: const BorderSide(width: 1, color: Colors.red)),
           highlightElevation: 20,
           onPressed: () {},
         ),
         TextButton(
           onPressed: () {},
-          child: Text("TextBTN"),
+          child: const Text("TextBTN"),
           style: TextButton.styleFrom(
               primary: Colors.black,
               backgroundColor: Colors.amber,
@@ -113,10 +227,10 @@ class _SearchPageState extends State<SearchPage> {
               // foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
               // backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
               // overlayColor: MaterialStateProperty.all(Colors.deepOrange),
-              side: BorderSide(width: 2, color: Colors.cyan),
+              side: const BorderSide(width: 2, color: Colors.cyan),
               elevation: 10,
               shadowColor: Colors.transparent,
-              minimumSize: Size(110, 100),
+              minimumSize: const Size(50, 50),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               // padding: EdgeInsets.only(top: 10, bottom: 5, left: 20, right: 2),
@@ -128,38 +242,37 @@ class _SearchPageState extends State<SearchPage> {
         ),
         TextButton.icon(
             onPressed: () {},
-            icon: Icon(Icons.account_box),
-            label: Text("BTN")),
-        // FloatingActionButtonLocation.endDocked;
+            icon: const Icon(Icons.account_box),
+            label: const Text("BTN")),
 
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
-        FloatingActionButton(
-          child: Icon(Icons.add),
-          backgroundColor: Colors.red,
-          foregroundColor: Colors.black,
-          splashColor: Colors.cyan,
-          mini: true,
-          onPressed: () {},
+        const SizedBox(
+          height: 15,
         ),
-        Ink(
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.play_circle),
-            // color: Colors.deepOrange,
-            highlightColor: Colors.red.shade100,
-            // focusColor: Colors.white,
-            // splashRadius: 100,
-            splashColor: Colors.white,
-            tooltip: "Play vedio",
-
-            iconSize: 50,
+        CircularPercentIndicator(
+          radius: 120.0,
+          lineWidth: 10.0,
+          animation: true,
+          percent: 1,
+          center: Text(
+            percent.toString() + "%",
+            style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.black),
           ),
-          decoration: ShapeDecoration(
-              color: Colors.cyan,
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(width: 3, color: Colors.black),
-                  borderRadius: BorderRadius.circular(15))),
+          backgroundColor: Colors.grey.shade300,
+          circularStrokeCap: CircularStrokeCap.round,
+          progressColor: Colors.redAccent,
         ),
+
+        const SizedBox(
+            // width: 400,
+            // height: 10,
+            child: LinearProgressIndicator(
+          backgroundColor: Colors.black54,
+          valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
+          minHeight: 2,
+        )),
 
         // decoration: BoxDecoration(
         //     border: Border.all(width: 2, color: Colors.black),

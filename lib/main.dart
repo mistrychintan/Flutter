@@ -1,8 +1,7 @@
 import 'package:day_6/pages/call.dart';
 import 'package:day_6/pages/home.dart';
 import 'package:day_6/pages/profil.dart';
-import 'package:day_6/pages/search.dart';
-// import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:day_6/pages/search.dart' show SearchPage;
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -25,6 +24,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
     );
   }
@@ -95,14 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
-      // body: Row(
-      //   children: const [
-      //     HomePage(),
-      //     CallPage(),
-      //     SearchPage(),
-      //     CarPage(),
-      //   ],
-      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: SpeedDial(
         backgroundColor: Colors.cyan,
