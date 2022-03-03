@@ -15,22 +15,20 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  late int percent = 0;
+  double percent = 0;
+  bool value = true;
+  double ava = 0;
   late Timer timer;
   @override
   initState() {
     timer = Timer.periodic(const Duration(milliseconds: 1000), (_) {
       setState(() {
-        percent += 10;
-        if (percent >= 100) {
-          Center(
-            child: Icon(
-              Icons.done,
-              color: Colors.green,
-              size: 50,
-            ),
-          );
+        percent += 0.1;
+        ava += 10;
+        if (percent > 1) {
           timer.cancel();
+          value = !value;
+          percent = 0;
         }
       });
     });
@@ -257,15 +255,23 @@ class _SearchPageState extends State<SearchPage> {
         CircularPercentIndicator(
           radius: 120.0,
           lineWidth: 10.0,
-          animation: true,
-          percent: percent / 100,
-          center: Text(
-            percent.toString() + "%",
-            style: const TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w600,
-                color: Colors.black),
-          ),
+          animation: false,
+          percent: percent,
+          animateFromLastPercent: true,
+          // addAutomaticKeepAlive: false,
+          center: value
+              ? Text(
+                  (ava).toString() + "%",
+                  style: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black),
+                )
+              : Icon(
+                  Icons.done,
+                  size: 50,
+                  color: Colors.green,
+                ),
           backgroundColor: Colors.grey.shade300,
           circularStrokeCap: CircularStrokeCap.round,
           progressColor: Colors.redAccent,
